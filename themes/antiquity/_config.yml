@@ -39,7 +39,7 @@ show_count: false
 background_title: 图片来自网络
 
 # favicon
-favicon: /images/default-avatar.jpg
+favicon: /leafcode/images/default-avatar.jpg
 
 #Userinfo
 author: 一苇
@@ -65,4 +65,4 @@ baidu_site_verification:
 
 # 友情链接
 blogroll:
-  一路眼瞎: https://yiluyanxia.github.io/
+  # 一路眼瞎: https://yiluyanxia.github.io/
