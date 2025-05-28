@@ -13,7 +13,7 @@ timezone: "Asia/ShangHai"
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://secretclubscn.com/leafcode
+url: https://secretclubscn.com
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -122,3 +122,4 @@ sitemap:
 nofollow:
   enable: true  #true/false 启用/关闭插件
   field: site   #site/post  处理全站/仅文章链接
+
