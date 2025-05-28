@@ -4,12 +4,12 @@
 
 # Site
 title: 日常记录
-subtitle: ''
-description: ''
-keywords:
+subtitle: '技术成长路上的问题与解法记录'
+description: 'ZF 的前端日常记录，整理工作中遇到的坑与灵感，持续学习、持续分享。'
+keywords: 前端 博客 js 编程 
 author: ZF
 language: en
-timezone: ''
+timezone: "Asia/ShangHai"
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
@@ -113,3 +113,12 @@ math:
     enable: true
     # Available values: none | ams | all
     tags: ams
+
+sitemap:
+    path: sitemap.xml
+    tag: false
+    category: false
+
+nofollow:
+  enable: true  #true/false 启用/关闭插件
+  field: site   #site/post  处理全站/仅文章链接

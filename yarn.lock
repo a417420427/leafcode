@@ -98,6 +98,11 @@ bluebird@^3.5.5, bluebird@^3.7.2:
   resolved "https://registry.npmmirror.com/bluebird/-/bluebird-3.7.2.tgz"
   integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
 
+bluebird@3.5.4:
+  version "3.5.4"
+  resolved "https://registry.npmmirror.com/bluebird/-/bluebird-3.5.4.tgz"
+  integrity sha512-FG+nFEZChJrbQ9tIccIfZJBz3J7mLrAhxakAbnrJWn8d7aKOC+LWifa0G+p4ZqKp4y13T7juYvdhq9NzKdsrjw==
+
 brace-expansion@^1.1.7:
   version "1.1.11"
   resolved "https://registry.npmmirror.com/brace-expansion/-/brace-expansion-1.1.11.tgz"
@@ -328,6 +333,11 @@ ejs@^3.1.6:
   dependencies:
     jake "^10.8.5"
 
+ejs@2.6.1:
+  version "2.6.1"
+  resolved "https://registry.npmmirror.com/ejs/-/ejs-2.6.1.tgz"
+  integrity sha512-0xy4A/twfrRCnkhfk8ErDi5DqdAsAqeGxht4xkCUrsvhhbQNs7E+4jV0CN7+NKIY0aHE72+XvqtBIXzD31ZbXQ==
+
 encodeurl@~1.0.2:
   version "1.0.2"
   resolved "https://registry.npmmirror.com/encodeurl/-/encodeurl-1.0.2.tgz"
@@ -474,6 +484,11 @@ hexo-filter-mathjax@^0.9.0:
   dependencies:
     mathjax-full "3.2.2"
 
+hexo-filter-nofollow@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npmmirror.com/hexo-filter-nofollow/-/hexo-filter-nofollow-2.0.2.tgz"
+  integrity sha512-roIkEIkGOR22EPMoy8iKrufDoAH25LOT5ZeVXVLavEpM757Y96kfUhyathryMLXr326EURffgkZAKsVf3EDl0A==
+
 hexo-front-matter@^4.2.1:
   version "4.2.1"
   resolved "https://registry.npmmirror.com/hexo-front-matter/-/hexo-front-matter-4.2.1.tgz"
@@ -511,6 +526,18 @@ hexo-generator-index@^4.0.0:
   integrity sha512-KeM7mOCKWINGFAk1E+CkjMMgqFIv8oaRbGxR7ipkQAp44o4aopkVftma4sdIplOq9WQEWfVYDUK5gEv9J3nzUg==
   dependencies:
     hexo-pagination "3.0.0"
+
+hexo-generator-seo-friendly-sitemap@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.npmmirror.com/hexo-generator-seo-friendly-sitemap/-/hexo-generator-seo-friendly-sitemap-0.2.1.tgz"
+  integrity sha512-DtEulX/7U2X4bRLztb6cDtHEvtwhEPSaL6shaxNtk2oPljJlnep9vFGGlF3KvTD1XADxSOtvVHd3RKWZEXl9WA==
+  dependencies:
+    bluebird "3.5.4"
+    ejs "2.6.1"
+    lodash "4.17.12"
+    moment "2.24.0"
+    pretty-data "0.40.0"
+    url-join "4.0.0"
 
 hexo-generator-tag@^2.0.0:
   version "2.0.0"
@@ -796,6 +823,11 @@ linkify-it@^4.0.1:
   dependencies:
     uc.micro "^1.0.1"
 
+lodash@4.17.12:
+  version "4.17.12"
+  resolved "https://registry.npmmirror.com/lodash/-/lodash-4.17.12.tgz"
+  integrity sha512-+CiwtLnsJhX03p20mwXuvhoebatoh5B3tt+VvYlrPgZC1g36y+RRbkufX95Xa+X4I59aWEacDFYwnJZiyBh9gA==
+
 lower-case@^2.0.2:
   version "2.0.2"
   resolved "https://registry.npmmirror.com/lower-case/-/lower-case-2.0.2.tgz"
@@ -973,6 +1005,11 @@ moment@^2.29.1, moment@^2.29.4:
   resolved "https://registry.npmmirror.com/moment/-/moment-2.30.1.tgz"
   integrity sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==
 
+moment@2.24.0:
+  version "2.24.0"
+  resolved "https://registry.npmmirror.com/moment/-/moment-2.24.0.tgz"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+
 morgan@^1.9.1:
   version "1.10.0"
   resolved "https://registry.npmmirror.com/morgan/-/morgan-1.10.0.tgz"
@@ -1098,6 +1135,11 @@ picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.3.1:
   version "2.3.1"
   resolved "https://registry.npmmirror.com/picomatch/-/picomatch-2.3.1.tgz"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
+
+pretty-data@0.40.0:
+  version "0.40.0"
+  resolved "https://registry.npmmirror.com/pretty-data/-/pretty-data-0.40.0.tgz"
+  integrity sha512-YFLnEdDEDnkt/GEhet5CYZHCvALw6+Elyb/tp8kQG03ZSIuzeaDWpZYndCXwgqu4NAjh1PI534dhDS1mHarRnQ==
 
 pretty-hrtime@^1.0.3:
   version "1.0.3"
@@ -1331,6 +1373,11 @@ unpipe@~1.0.0:
   version "1.0.0"
   resolved "https://registry.npmmirror.com/unpipe/-/unpipe-1.0.0.tgz"
   integrity sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==
+
+url-join@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmmirror.com/url-join/-/url-join-4.0.0.tgz"
+  integrity sha512-EGXjXJZhIHiQMK2pQukuFcL303nskqIRzWvPvV5O8miOfwoUb9G+a/Cld60kUyeaybEI94wvVClT10DtfeAExA==
 
 uslug@^1.0.4:
   version "1.0.4"

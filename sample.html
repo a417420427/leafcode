@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="container">
+    <div class="inner-1">
+      <div class="box">
+
+      </div>
+    </div>
+    <div class="inner-2">
+
+    </div>
+  </div>
+  <style>
+    .container {
+      width: 400px;
+      height: 200px;
+      border: 1px solid #000;
+    }
+    .box {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+      background: #fff;
+    }
+    .inner-1 {
+      background: #c1c1c1;
+      height: 120px;
+    }
+    .inner-2 {
+      background: #f1f1f1;
+      height: 40px;
+      width: 200px;
+    }
+  </style>
+  <script>
+  function parseHTMLWithStateMachine(html) {
+  // 节点结构
+  class Node {
+    constructor(type, tagName = '', parent = null) {
+      this.type = type; // 'element' or 'text'
+      this.tagName = tagName;
+      this.children = [];
+      this.parent = parent;
+      this.attributes = {};
+      this.content = ''; // text内容用
+    }
+  }
+
+  let state = 'data'; // 初始状态
+  let currentToken = null;
+  let currentAttributeName = '';
+  let currentAttributeValue = '';
+  let root = new Node('element', 'root'); // 根节点（虚拟）
+  let currentNode = root;
+
+  // 用来存放标签名和属性等字符
+  let buffer = '';
+
+  for (let i = 0; i < html.length; i++) {
+    const c = html[i];
+
+    switch(state) {
+      case 'data':
+        if (c === '<') {
+          if (buffer.trim()) {
+            // 遇到标签前先把文本节点放进去
+            let textNode = new Node('text');
+            textNode.content = buffer;
+            textNode.parent = currentNode;
+            currentNode.children.push(textNode);
+            buffer = '';
+          }
+          state = 'tagOpen';
+        } else {
+          buffer += c;
+        }
+        break;
+
+      case 'tagOpen':
+        if (c === '/') {
+          state = 'endTagOpen';
+          buffer = '';
+        } else if (/[a-zA-Z]/.test(c)) {
+          state = 'tagName';
+          buffer = c;
+          currentToken = {type: 'startTag', tagName: '', attributes: {}};
+        }
+        break;
+
+      case 'tagName':
+        if (/\s/.test(c)) {
+          currentToken.tagName = buffer;
+          buffer = '';
+          state = 'beforeAttributeName';
+        } else if (c === '>') {
+          currentToken.tagName = buffer;
+          buffer = '';
+          // 生成节点
+          let elementNode = new Node('element', currentToken.tagName, currentNode);
+          currentNode.children.push(elementNode);
+          currentNode = elementNode; // 进入子节点
+          state = 'data';
+        } else {
+          buffer += c;
+        }
+        break;
+
+      case 'beforeAttributeName':
+        if (/\s/.test(c)) {
+          // 忽略空白
+        } else if (c === '>') {
+          // 结束标签头
+          let elementNode = new Node('element', currentToken.tagName, currentNode);
+          // 这里简单忽略属性
+          currentNode.children.push(elementNode);
+          currentNode = elementNode;
+          state = 'data';
+        } else {
+          buffer = c;
+          currentAttributeName = '';
+          currentAttributeValue = '';
+          state = 'attributeName';
+        }
+        break;
+
+      case 'attributeName':
+        if (c === '=') {
+          currentAttributeName = buffer;
+          buffer = '';
+          state = 'beforeAttributeValue';
+        } else if (/\s/.test(c)) {
+          currentAttributeName = buffer;
+          currentToken.attributes[currentAttributeName] = true; // 只有名字没有值
+          buffer = '';
+          state = 'beforeAttributeName';
+        } else if (c === '>') {
+          currentAttributeName = buffer;
+          currentToken.attributes[currentAttributeName] = true;
+          buffer = '';
+          let elementNode = new Node('element', currentToken.tagName, currentNode);
+          elementNode.attributes = currentToken.attributes;
+          currentNode.children.push(elementNode);
+          currentNode = elementNode;
+          state = 'data';
+        } else {
+          buffer += c;
+        }
+        break;
+
+      case 'beforeAttributeValue':
+        if (/\s/.test(c)) {
+          // 忽略
+        } else if (c === '"' || c === "'") {
+          state = 'attributeValueQuoted';
+          buffer = '';
+        } else {
+          state = 'attributeValueUnquoted';
+          buffer = c;
+        }
+        break;
+
+      case 'attributeValueQuoted':
+        if (c === '"' || c === "'") {
+          currentAttributeValue = buffer;
+          currentToken.attributes[currentAttributeName] = currentAttributeValue;
+          buffer = '';
+          state = 'beforeAttributeName';
+        } else {
+          buffer += c;
+        }
+        break;
+
+      case 'attributeValueUnquoted':
+        if (/\s/.test(c)) {
+          currentAttributeValue = buffer;
+          currentToken.attributes[currentAttributeName] = currentAttributeValue;
+          buffer = '';
+          state = 'beforeAttributeName';
+        } else if (c === '>') {
+          currentAttributeValue = buffer;
+          currentToken.attributes[currentAttributeName] = currentAttributeValue;
+          buffer = '';
+          let elementNode = new Node(currentToken.type === 'startTag' ? 'element' : 'text', currentToken.tagName, currentNode);
+          elementNode.attributes = currentToken.attributes;
+          currentNode.children.push(elementNode);
+          currentNode = elementNode;
+          state = 'data';
+        } else {
+          buffer += c;
+        }
+        break;
+
+      case 'endTagOpen':
+        if (/[a-zA-Z]/.test(c)) {
+          buffer = c;
+          state = 'endTagName';
+        }
+        break;
+
+      case 'endTagName':
+        if (/\s/.test(c)) {
+          // 忽略标签名后的空白
+        } else if (c === '>') {
+          // 标签结束，收回当前节点
+          if (buffer === currentNode.tagName) {
+            currentNode = currentNode.parent || root;
+          }
+          buffer = '';
+          state = 'data';
+        } else {
+          buffer += c;
+        }
+        break;
+    }
+  }
+
+  // 剩余buffer处理
+  if (buffer.trim()) {
+    let textNode = new Node('text');
+    textNode.content = buffer;
+    textNode.parent = currentNode;
+    currentNode.children.push(textNode);
+  }
+
+  return root;
+}
+
+// 测试示例
+const htmlString = `
+<html lang="cn">
+<head>
+  <title>Document</title>
+</head>
+<body>
+  <div class="container">
+    <div class="inner-1">
+      <div class="box">
+
+      </div>
+    </div>
+    <div class="inner-2">
+
+    </div>
+  </div>
+  <style>
+    .container {
+      width: 400px;
+      height: 200px;
+      border: 1px solid #000;
+    }
+    .box {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+      background: #fff;
+    }
+    .inner-1 {
+      background: #c1c1c1;
+      height: 120px;
+    }
+    .inner-2 {
+      background: #f1f1f1;
+      height: 40px;
+      width: 200px;
+    }
+  </style>
+</body>
+</html>
+`;
+
+const domTree = parseHTMLWithStateMachine(htmlString);
+console.log(JSON.stringify(domTree, null, 2));
+
+  </script>
+</body>
+</html>
