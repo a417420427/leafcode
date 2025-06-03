@@ -101,7 +101,10 @@ theme: antiquity
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: git
+  repo: https://a417420427.github.io/leafcode
+  # example, https://github.com/hexojs/hexojs.github.io
+  branch: main
 
 math:
   # Default (false) will load mathjax / katex script on demand.
@@ -123,3 +126,16 @@ nofollow:
   enable: true  #true/false 启用/关闭插件
   field: site   #site/post  处理全站/仅文章链接
 
+
+# gitalk:
+#   clientID: Ov23lilE8dn77xznn4Co           # github 应用id，必须
+#   clientSecret: 98f2db50b3d0c869a74dc2fcb354738ecaf03980   # github 应用密钥，必须
+#   repo: https://github.com/a417420427/leafcode      # github 仓库， 必须
+#   owner: a417420427                # github 仓库所有者， 必须
+#   admin: ['a417420zha@qq.com']              # github 仓库有写权限的账号
+#   language: zh-CN               # 语言
+#   labels: ['Gitalk']            # GitHub issue 的标签。
+#   perPage: 10                   # 每页大小
+#   pagerDirection: last          # 评论排序方式， last为按评论创建时间倒叙，first为按创建时间正序
+#   distractionFreeMode: false    # 类似Facebook评论框的全屏遮罩效果.
+#   createIssueManually: true     # 如果当前页面没有相应的 isssue 且登录的用户属于 admin，则会自动创建 issue。如果设置为 true，则显示一个初始化页面
